@@ -2,9 +2,45 @@ spring:
   cloud:
     gateway:
       routes:
-        -id: admin_route
-        uri: lb://renren-fast
-        predicates:
-          - Path=/api/**
-        filters:
-          - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: product_route
+          uri: lb://product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+
+        - id: member_route
+          uri: lb://member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+alibaba:
+  cloud:
+    access-key: LTAI5tRKCdjen3DebGvLNDYu
+    secret-key: uFaC3apVf5As18Iwt8nm5VwS9ZIrK5
+    oss:
+      endpoint: oss-us-west-1.aliyuncs.com
